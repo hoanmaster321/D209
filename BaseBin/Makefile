@@ -1,3 +1,12 @@
+#all: mktemp choma
+
+#mktemp:
+#	rm -rf .build-dir
+#	mkdir .build-dir
+
+#choma:
+#	$(MAKE) -C ChOma TARGET=ios DISABLE_SIGNING=1 DYLIB_LDFLAGS="-install_name @loader_path/libchoma.dylib" $@
+
 all: basebin.tar
 
 subprojects: ChOma XPF opainject libjailbreak systemhook forkfix launchdhook boomerang jbctl idownloadd watchdoghook rootlesshooks
@@ -71,7 +80,8 @@ basebin.tc: subprojects
 	cp .build/basebin.tc basebin.tc
 
 basebin.tar: basebin.tc
-	@tar -cvf "basebin.tar" -C .build . --owner=0 --group=0
+	@tar -cf basebin.tar -C .build .
+	@cp .build/basebin.tc basebin.tc
 
 clean:
 	@$(MAKE) -C ChOma $@
